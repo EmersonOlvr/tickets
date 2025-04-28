@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 3
+      Relatórios
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,9 +9,66 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
+      <ion-title size="large">Relatórios</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Relatório quantitativo</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>Senhas emitidas: {{ senhasService.qtdSenhasTotalGeradas }}</ion-item>
+        <ion-item>Senhas atendidas: {{ senhasService.qtdSenhasAtendidas }}</ion-item>
+        <ion-item>Senhas Geral emitidas (SG): {{ senhasService.qtdSenhasGeralGeradas }}</ion-item>
+        <ion-item>Senhas Geral atendidas (SG): {{ senhasService.qtdSenhasGeralAtendidas }}</ion-item>
+        <ion-item>Senhas Prioritárias emitidas (SP): {{ senhasService.qtdSenhasPriorGeradas }}</ion-item>
+        <ion-item>Senhas Prioritárias atendidas (SP): {{ senhasService.qtdSenhasPriorAtendidas }}</ion-item>
+        <ion-item>Senhas Exame emitidas (SE): {{ senhasService.qtdSenhasExameGeradas }}</ion-item>
+        <ion-item>Senhas Exame atendidas (SE): {{ senhasService.qtdSenhasExameAtendidas }}</ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Relatório de Senhas</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col><strong>Senha</strong></ion-col>
+          <ion-col><strong>Tipo</strong></ion-col>
+          <ion-col><strong>Emitida em</strong></ion-col>
+          <ion-col><strong>Atendida em</strong></ion-col>
+          <ion-col><strong>Guichê</strong></ion-col>
+        </ion-row>
+
+        <ion-row *ngFor="let item of senhasService.relatorio.slice().reverse()">
+          <ion-col>{{ item.senha }}</ion-col>
+          <ion-col>{{ senhasService.tiposDeSenha[item.tipo] }}</ion-col>
+          <ion-col>{{ item.dataCriacao | date:'dd/MM/yyyy HH:mm' }}</ion-col>
+          <ion-col>{{ item.dataAtendimento ? (item.dataAtendimento | date:'dd/MM/yyyy HH:mm') : '-' }}</ion-col>
+          <ion-col>{{ item.guicheIndex !== null ? (item.guicheIndex + 1) : '-' }}</ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Relatório do TM (Tempo Médio de atendimento)</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>TM total: {{ senhasService.mediasDeDuracao.total }} minutos</ion-item>
+        <ion-item>TM das Senhas Gerais (SG): {{ senhasService.mediasDeDuracao.SG }} minutos</ion-item>
+        <ion-item>TM das Senhas Prioritárias (SP): {{ senhasService.mediasDeDuracao.SP }} minutos</ion-item>
+        <ion-item>TM das Senhas Exames (SE): {{ senhasService.mediasDeDuracao.SE }} minutos</ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- <app-explore-container name="Tab 3 page"></app-explore-container> -->
 </ion-content>

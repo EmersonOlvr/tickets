@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 2
+      Atendente
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,9 +9,33 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
+      <ion-title size="large">Atendente</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+  <ion-card *ngFor="let quiche of quiches; let i = index">
+    <ion-card-header>
+      <ion-card-title>Guichê {{ (i + 1) | number: '2.0' }}</ion-card-title>
+      <ion-card-subtitle>
+        <span [style.color]="atendimentosAtuais[i] ? '#ffc409' : '#2dd55b'">
+          {{ atendimentosAtuais[i] ? 'Ocupado' : 'Livre' }}
+        </span>
+      </ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      <div *ngIf="atendimentosAtuais[i]">
+        <div><b>Atendendo a senha: </b> {{ atendimentosAtuais[i].senha }}</div>
+        <div><b>Atendimento finaliza em: </b> {{ temposRestantes[i] }}</div>
+      </div>
+      <ion-button *ngIf="!atendimentosAtuais[i]" expand="block" (click)="chamarProximaSenha(i)" [disabled]="!senhasService.hasSenhasPendentes">
+        Chamar próxima senha
+      </ion-button>
+      <ion-button *ngIf="atendimentosAtuais[i]" expand="block" (click)="finalizarAtendimento(i)" color="warning">
+        Finalizar atendimento
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- <app-explore-container name="Tab 2 page"></app-explore-container> -->
 </ion-content>
