@@ -1,6 +1,9 @@
 # Sistema para controle de atendimento
 Projeto 01 da cadeira de Desenvolvimento para Dispositivos Móveis do curso superior de ADS.
 
+## Desenvolvido por:
+- Emerson Oliveira (matrícula: 01745948)
+
 ## Pré-requisitos:
 - Node ([https://www.nodejs.tech/pt-br/download](https://www.nodejs.tech/pt-br/download)).
 - Ionic ([https://ionicframework.com/](https://ionicframework.com/))
